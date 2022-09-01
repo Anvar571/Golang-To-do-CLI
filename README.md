@@ -20,6 +20,7 @@
 - get {id} return todo by id
 - create {title} {discription}
 - edit {id} {title} {discription}
+- delete by {id} or {title}
 - status {id} {status} - return ok
 
 ### file format
