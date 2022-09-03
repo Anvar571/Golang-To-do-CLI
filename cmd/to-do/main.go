@@ -26,23 +26,8 @@ type Todo struct {
 }
 
 var (
-	todoList = []Todo{
-		{
-			ID:          1,
-			Title:       "my bootcamp course",
-			Discription: "learning go programming",
-			CreatedAt:   time.Now(),
-			Status:      StatusToDo,
-		},
-		{
-			ID:          2,
-			Title:       "my bootcamp my first app",
-			Discription: "learning go programming",
-			CreatedAt:   time.Now(),
-			Status:      StatusInProgres,
-		},
-	}
-	lastID int = 2
+	todoList     = make([]Todo, 0)
+	lastID   int = 0
 )
 
 func List() []Todo {
@@ -68,28 +53,35 @@ func Create(title, discription string) Todo {
 		CreatedAt:   time.Now(),
 		Status:      StatusToDo,
 	}
-
 	todoList = append(todoList, newTodo)
 
 	return newTodo
 }
 
 func Save() error {
-	f, err := os.OpenFile("./database.csv", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	f, err := os.OpenFile("./database.csv", os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		return err
 	}
 	defer f.Close()
 
 	for _, todo := range todoList {
-		todoStr := fmt.Sprintf("%d;%s;%s;%s;%d\n", todo.ID, todo.Title, todo.Discription, todo.CreatedAt.Format(time.RFC3339), todo.Status)
-		
+		todoStr := fmt.Sprintf("%d %s;%s;%s;%d\n", todo.ID, todo.Title, todo.Discription, todo.CreatedAt.Format(time.RFC3339), todo.Status)
+
 		_, err := f.WriteString(todoStr)
 		if err != nil {
 			return err
 		}
 	}
+	return nil
+}
 
+func ReadFile() error {
+	f, err := os.OpenFile("./database.csv", os.O_CREATE|os.O_RDONLY, 0666)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
 	return nil
 }
 
@@ -100,7 +92,7 @@ func main() {
 		os.Exit(1)
 	}
 	defer Save()
-	
+
 	switch os.Args[1] {
 	case "list":
 		todos := List()
