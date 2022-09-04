@@ -1,3 +1,4 @@
+# Golang orqali ToDo yasash terminalda ishlatish
 # TO-DO
 
 1. Todo list 

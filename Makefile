@@ -1,7 +1,7 @@
 run:
-	go run cmd/to-do/main.go
+	go run mainFile/main.go
 build:
-	go build -o to-do ./cmd/to-do/
+	go build -o todos ./todos/todo.go
 
 .PHONY: run build
 .DEFAULT_GOAL:=run
