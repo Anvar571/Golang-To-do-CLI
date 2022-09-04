@@ -1,8 +1,8 @@
 package main
 
 import (
+	"To-Do-CLI/todos"
 	"fmt"
-	"projects/todo"
 	"os"
 )
 
@@ -12,6 +12,6 @@ func main() {
 		fmt.Println("can not argumets")
 		os.Exit(1)
 	}
-	fmt.Println(todo.List())
+	fmt.Println(todos.List())
 	fmt.Println(os.Args[0])
 }

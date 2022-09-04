@@ -1,19 +1,19 @@
-package todo
+package todos
 
 import (
 	"time"
 )
 
 type Todo struct {
-	ID int
-	Title string
+	ID          int
+	Title       string
 	Description string
-	CreatedAt time.Time
+	CreatedAt   time.Time
 }
 
 var (
 	todoList = make([]Todo, 0)
-	idCount = 0
+	idCount  = 0
 )
 
 func List() Todo {
@@ -23,12 +23,12 @@ func List() Todo {
 func Create(title, description string) Todo {
 	idCount++
 	newTodo := Todo{
-		ID: idCount,
-		Title: title,
+		ID:          idCount,
+		Title:       title,
 		Description: description,
-		CreatedAt: time.Now(),
+		CreatedAt:   time.Now(),
 	}
 	todoList = append(todoList, newTodo)
-	
+
 	return newTodo
 }
